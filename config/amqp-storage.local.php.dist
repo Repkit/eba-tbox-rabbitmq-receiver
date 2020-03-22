@@ -1,0 +1,49 @@
+<?php
+$settings = [
+    'rabbitmq_receiver_storage' => [
+        // queue => storage
+        'eba_log' => [
+            \TBoxRabbitMQReceiver\StorageAdapter\ElasticsearchAdapter::class => [
+                'connection' => [
+                    'hosts' => [
+                        'http://0.0.0.0:9200',
+                    ]
+                ],
+                'index_settings' => [
+                    'index' => 'eba',
+                    'body' => [
+                        'settings' => [
+                            'number_of_shards' => 1,
+                            'number_of_replicas' => 0
+                        ],
+                        'mappings' => [ 
+                            'ebalog' => [
+                                '_source' => [
+                                    'enabled' => true
+                                ],
+                                'properties' => [
+                                    'API'         => ['type' => 'keyword'],
+                                    'Version'     => ['type' => 'integer'],
+                                    'Type'        => ['type' => 'keyword'],
+                                    'Service'     => ['type' => 'keyword'],
+                                    'RouteParams' => ['type' => 'text'],
+                                    'Uri'         => ['type' => 'text'],
+                                    'Method'      => ['type' => 'keyword'],
+                                    'Headers'     => ['type' => 'text'],
+                                    'Server'      => ['type' => 'text'],
+                                    'QueryParams' => ['type' => 'text'],
+                                    'PostParams'  => ['type' => 'text'],
+                                    'FileParams'  => ['type' => 'text'],
+                                    'UserId'      => ['type' => 'integer'],
+                                    'Timestamp'   => ['type' => 'integer'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+
+return $settings;

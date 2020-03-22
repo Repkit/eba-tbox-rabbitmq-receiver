@@ -1,0 +1,13 @@
+<?php
+$settings = [
+	'amqp' => [
+		'server' => [
+			'host'     => '<amqp_server>',
+			'port'     => '5672',
+			'username' => '<amqp_username>',
+			'password' => '<amqp_password>',
+		]
+	],
+];
+
+return $settings;
